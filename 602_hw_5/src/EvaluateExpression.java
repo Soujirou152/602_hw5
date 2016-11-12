@@ -22,8 +22,10 @@ public class EvaluateExpression
 //		{
 //			System.out.println("Wrong expression: " + args[0]);
 //		}
-		
-		StdOut.println(evaluateExpression("1 + 46 * (2 - 1)"));
+	
+		StdOut.println("Input an expression you want evaluated");
+		String in = StdIn.readLine();
+		StdOut.println(evaluateExpression(in));
 	}
 
 	/** Evaluate an expression */
@@ -58,10 +60,10 @@ public class EvaluateExpression
 				// Push the + or - operator into the operator stack
 				operatorStack.push(token.charAt(0));
 			}
-			else if (token.charAt(0) == '*' || token.charAt(0) == '/')
+			else if (token.charAt(0) == '*' || token.charAt(0) == '/' || token.charAt(0) == '%' )
 			{
 				// Process all *, / in the top of the operator stack
-				while (!operatorStack.isEmpty() && (operatorStack.peek() == '*' || operatorStack.peek() == '/'))
+				while (!operatorStack.isEmpty() && (operatorStack.peek() == '*' || operatorStack.peek() == '/' || operatorStack.peek() == '%' ))
 				{
 					processAnOperator(operandStack, operatorStack);
 				}
@@ -117,6 +119,8 @@ public class EvaluateExpression
 			operandStack.push(op2 * op1);
 		else if (op == '/')
 			operandStack.push(op2 / op1);
+		else if(op == '%')
+			operandStack.push(op2 % op1);
 	}
 
 	public static String insertBlanks(String s)
